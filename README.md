@@ -19,6 +19,7 @@ poetry install
 After install you can use the package to parse acronym definitions from bioc documents. In the following example we are downloading a bioc document from pubmed and then applying the acronym parser
 
 ```python
+import bioc
 import requests
 
 from acronym_parser import mark_acronyms
@@ -27,5 +28,7 @@ url = 'https://www.ncbi.nlm.nih.gov/research/bionlp/RESTful/pmcoa.cgi/BioC_xml/P
 resp = requests.get(url)
 resp.raise_for_status()
 
-acronyms = mark_acronyms(resp.text)
+doc = bioc.loads(resp.text).documents[0]
+
+acronyms = grab_acronyms(doc)
 ```
